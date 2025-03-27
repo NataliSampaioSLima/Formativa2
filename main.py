@@ -220,7 +220,18 @@ def pesquisar_cliente_por_telefone():
 conectar_bd()
 root = ttk.Window(themename="superhero")
 root.title("Clientes - Café com Bolos")
-root.geometry("700x700")
+
+# Obter a resolução da tela
+screen_width = root.winfo_screenwidth()  # Largura da tela
+screen_height = root.winfo_screenheight()  # Altura da tela
+
+# Definir a geometria da janela para ocupar 80% da tela
+largura = int(screen_width * 0.8)
+altura = int(screen_height * 0.8)
+
+# Definir a geometria da janela com a largura e altura ajustadas
+root.geometry(f"{largura}x{altura}")
+
 
 # Definir o ícone (modifique o caminho para o seu arquivo de ícone)
 icone = PhotoImage(file="C:/Users/natal/Desktop/natalifaculdade/DisciplinaDevops/icoe sistema.png")
