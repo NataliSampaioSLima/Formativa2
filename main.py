@@ -82,27 +82,38 @@ def buscar_cliente():
     else:
         messagebox.showerror("Erro", "Cliente não encontrado!")
 
+
+# Função para excluir cliente
 def excluir_cliente():
-    selecionado = tree.selection()
-    if selecionado:
-        item = tree.item(selecionado)['values']
-        if not item:
-            messagebox.showerror("Erro", "Selecione um cliente válido!")
-            return
+    telefone = entry_telefone_excluir.get().strip()
 
-        telefone = item[0]  # Telefone é a chave primária
+    if not telefone.isdigit() or len(telefone) != 11:
+        messagebox.showerror("Erro", "Digite um telefone válido com 11 dígitos!")
+        return
 
-        confirmar = messagebox.askyesno("Confirmação", f"Tem certeza que deseja excluir o cliente {item[1]}?")
+    # Conectar ao banco de dados para buscar o cliente
+    conn = sqlite3.connect("clientes.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM clientes WHERE telefone = ?", (telefone,))
+    row = cursor.fetchone()
+    conn.close()
+
+    if row:
+        # Exibir os dados do cliente
+        cliente_info = f"Nome: {row[1]}\nTelefone: {row[0]}\nEndereço: {row[2]}\nBairro: {row[3]}\nNúmero Residencial: {row[4]}\nComplemento: {row[5]}"
+        confirmar = messagebox.askyesno("Confirmação", f"Tem certeza que deseja excluir o cliente?\n\n{cliente_info}")
+
         if confirmar:
+            # Excluir cliente
             conn = sqlite3.connect("clientes.db")
             cursor = conn.cursor()
             cursor.execute("DELETE FROM clientes WHERE telefone = ?", (telefone,))
             conn.commit()
             conn.close()
-            listar_clientes()
+            listar_clientes()  # Atualiza a lista de clientes após exclusão
             messagebox.showinfo("Sucesso", "Cliente excluído com sucesso!")
     else:
-        messagebox.showerror("Erro", "Selecione um cliente para excluir!")
+        messagebox.showerror("Erro", "Cliente não encontrado!")
 
 # Função para carregar dados para edição
 def carregar_cliente_para_editar():
