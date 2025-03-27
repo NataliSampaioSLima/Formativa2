@@ -31,8 +31,12 @@ def adicionar_cliente():
         messagebox.showerror("Erro", "Preencha todos os campos obrigatórios!")
         return
 
-    if not telefone.isdigit() or not numeroresidencial.isdigit():
-        messagebox.showerror("Erro", "Telefone e Número Residencial devem conter apenas números!")
+    if not telefone.isdigit() or len(telefone) != 11:
+        messagebox.showerror("Erro", "O telefone deve conter exatamente 11 dígitos numéricos!")
+        return
+
+    if not numeroresidencial.isdigit():
+        messagebox.showerror("Erro", "Número Residencial deve conter apenas números!")
         return
 
     try:
@@ -62,8 +66,8 @@ def listar_clientes():
 def buscar_cliente():
     telefone = entry_busca.get().strip()
 
-    if not telefone.isdigit():
-        messagebox.showerror("Erro", "Digite um telefone válido!")
+    if not telefone.isdigit() or len(telefone) != 11:
+        messagebox.showerror("Erro", "Digite um telefone válido com 11 dígitos!")
         return
 
     conn = sqlite3.connect("clientes.db")
@@ -148,6 +152,10 @@ def salvar_edicao():
 
     if not nome or not endereco or not bairro or not numeroresidencial:
         messagebox.showerror("Erro", "Preencha todos os campos obrigatórios!")
+        return
+
+    if not telefone.isdigit() or len(telefone) != 11:
+        messagebox.showerror("Erro", "O telefone deve conter exatamente 11 dígitos numéricos!")
         return
 
     if not numeroresidencial.isdigit():
