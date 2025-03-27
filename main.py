@@ -342,11 +342,15 @@ entry_complemento_edit.pack()
 btn_salvar_edicao = ttk.Button(frame_editar, text="Salvar Alterações", command=salvar_edicao, bootstyle=SUCCESS)
 btn_salvar_edicao.pack(pady=10)
 
-# Aba Excluir Cliente
+# Criar interface gráfica (modificação na aba de exclusão)
 frame_excluir = ttk.Frame(notebook)
 notebook.add(frame_excluir, text="Excluir Cliente")
 
-ttk.Label(frame_excluir, text="Selecione um cliente na aba 'Visualizar Clientes' e clique no botão abaixo:").pack()
+ttk.Label(frame_excluir, text="Digite o número do cliente que deseja excluir:").pack(pady=10)
+entry_telefone_excluir = ttk.Entry(frame_excluir, width=40)
+entry_telefone_excluir.pack()
+
+# Botão de excluir
 btn_excluir = ttk.Button(frame_excluir, text="Excluir Cliente", command=excluir_cliente, bootstyle=DANGER)
 btn_excluir.pack(pady=10)
 
