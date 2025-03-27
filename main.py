@@ -286,6 +286,8 @@ tree.heading("Bairro", text="Bairro")
 tree.heading("Número", text="Número")
 tree.heading("Complemento", text="Complemento")
 tree.pack(expand=True, fill=BOTH)
+# Ajustar a Treeview para preencher o espaço disponível de forma responsiva
+tree.pack(expand=True, fill=BOTH)  # Garantir que a Treeview ocupe todo o espaço disponível
 listar_clientes()
 
 # Aba Pesquisar Cliente
