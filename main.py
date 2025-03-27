@@ -83,38 +83,6 @@ def buscar_cliente():
         messagebox.showerror("Erro", "Cliente não encontrado!")
 
 
-# Função para excluir cliente
-def excluir_cliente():
-    telefone = entry_telefone_excluir.get().strip()
-
-    if not telefone.isdigit() or len(telefone) != 11:
-        messagebox.showerror("Erro", "Digite um telefone válido com 11 dígitos!")
-        return
-
-    # Conectar ao banco de dados para buscar o cliente
-    conn = sqlite3.connect("clientes.db")
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM clientes WHERE telefone = ?", (telefone,))
-    row = cursor.fetchone()
-    conn.close()
-
-    if row:
-        # Exibir os dados do cliente
-        cliente_info = f"Nome: {row[1]}\nTelefone: {row[0]}\nEndereço: {row[2]}\nBairro: {row[3]}\nNúmero Residencial: {row[4]}\nComplemento: {row[5]}"
-        confirmar = messagebox.askyesno("Confirmação", f"Tem certeza que deseja excluir o cliente?\n\n{cliente_info}")
-
-        if confirmar:
-            # Excluir cliente
-            conn = sqlite3.connect("clientes.db")
-            cursor = conn.cursor()
-            cursor.execute("DELETE FROM clientes WHERE telefone = ?", (telefone,))
-            conn.commit()
-            conn.close()
-            listar_clientes()  # Atualiza a lista de clientes após exclusão
-            messagebox.showinfo("Sucesso", "Cliente excluído com sucesso!")
-    else:
-        messagebox.showerror("Erro", "Cliente não encontrado!")
-
 # Função para carregar dados para edição
 def carregar_cliente_para_editar():
     telefone = entry_telefone_edit_buscar.get().strip()
@@ -224,6 +192,39 @@ def pesquisar_cliente_por_telefone():
         entry_complemento_edit.insert(0, row[5])
 
         messagebox.showinfo("Cliente encontrado", "Os dados do cliente foram carregados.")
+    else:
+        messagebox.showerror("Erro", "Cliente não encontrado!")
+
+
+# Função para excluir cliente
+def excluir_cliente():
+    telefone = entry_telefone_excluir.get().strip()
+
+    if not telefone.isdigit() or len(telefone) != 11:
+        messagebox.showerror("Erro", "Digite um telefone válido com 11 dígitos!")
+        return
+
+    # Conectar ao banco de dados para buscar o cliente
+    conn = sqlite3.connect("clientes.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM clientes WHERE telefone = ?", (telefone,))
+    row = cursor.fetchone()
+    conn.close()
+
+    if row:
+        # Exibir os dados do cliente
+        cliente_info = f"Nome: {row[1]}\nTelefone: {row[0]}\nEndereço: {row[2]}\nBairro: {row[3]}\nNúmero Residencial: {row[4]}\nComplemento: {row[5]}"
+        confirmar = messagebox.askyesno("Confirmação", f"Tem certeza que deseja excluir o cliente?\n\n{cliente_info}")
+
+        if confirmar:
+            # Excluir cliente
+            conn = sqlite3.connect("clientes.db")
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM clientes WHERE telefone = ?", (telefone,))
+            conn.commit()
+            conn.close()
+            listar_clientes()  # Atualiza a lista de clientes após exclusão
+            messagebox.showinfo("Sucesso", "Cliente excluído com sucesso!")
     else:
         messagebox.showerror("Erro", "Cliente não encontrado!")
 
