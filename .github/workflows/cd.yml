@@ -24,5 +24,19 @@ jobs:
           name: projetozipado.zip
           path: deployment/projetozipado.zip
 
-  
+  deploy:
+    runs-on: ubuntu-latest
+    needs: deliver
+    steps:
+      - name: Download
+        uses: actions/download-artifact@v4
+        with:
+          name: projetozipado.zip
+
+      - name: Extract the project files
+        run: |
+          unzip projetozipado.zip -d deployment
+
+      - name: Display structure of downloaded files
+        run: ls -R deployment
 
