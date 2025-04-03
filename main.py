@@ -243,13 +243,6 @@ altura = int(screen_height * 0.8)
 # Definir a geometria da janela com a largura e altura ajustadas
 root.geometry(f"{largura}x{altura}")
 
-
-# Definir o ícone (modifique o caminho para o seu arquivo de ícone)
-icone = PhotoImage(file="C:/Users/natal/Desktop/natalifaculdade/DisciplinaDevops/icoe sistema.png")
-
-root.iconphoto(False, icone)
-
-
 notebook = ttk.Notebook(root)
 notebook.pack(pady=10, expand=True, fill=BOTH)
 
