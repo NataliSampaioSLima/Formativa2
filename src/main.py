@@ -117,7 +117,9 @@ def excluir_cliente():
 
 # Função para carregar dados para edição
 def carregar_cliente_para_editar():
+
     telefone = entry_telefone_busca.get().strip()
+
 
     if not telefone.isdigit():
         messagebox.showerror("Erro", "Digite um telefone válido!")
@@ -228,6 +230,7 @@ def pesquisar_cliente_por_telefone():
         messagebox.showerror("Erro", "Cliente não encontrado!")
 
 # Criar interface gráfica
+
 global root
 
 
@@ -364,3 +367,4 @@ if __name__ == "__main__":
     print("Teste GitHub com Discord")
 
     app.mainloop()
+
