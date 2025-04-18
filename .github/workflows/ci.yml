@@ -45,7 +45,7 @@ jobs:
           pip install pytest pytest-cov pytest-asyncio
 
       - name: Ajustar PYTHONPATH
-        run: echo "PYTHONPATH=$(pwd)/src" >> $GITHUB_ENV
+        run: echo "PYTHONPATH=$GITHUB_WORKSPACE/src" >> $GITHUB_ENV
 
       - name: Test with pytest
         run: |
