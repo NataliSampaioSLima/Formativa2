@@ -31,17 +31,28 @@ jobs:
   testes:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install dependencies
+
+      - name: Instalar dependências
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Test with pytest
-        run: |
           pip install pytest pytest-cov pytest-asyncio
-          pytest test/test.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+
+      - name: Executar testes com pytest
+        env:
+          PYTHONPATH: ./src  # <-- ESSENCIAL para que os testes encontrem o módulo main.py
+        run: |
+          pytest test/test.py \
+            --doctest-modules \
+            --junitxml=junit/test-results.xml \
+            --cov=src \
+            --cov-report=xml \
+            --cov-report=html
 
