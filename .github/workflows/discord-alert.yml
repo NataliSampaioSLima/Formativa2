@@ -6,7 +6,11 @@ on:
       - main
 
 jobs:
+<<<<<<< HEAD
   discord:
+=======
+  notify:
+>>>>>>> 2bab61ed16435ca2c10edf9e8d9f396f5a53800a
     runs-on: ubuntu-latest
 
     steps:
@@ -18,9 +22,13 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
+<<<<<<< HEAD
           args: |
             🚨 **Novo Push na branch `main`!**
             📦 **Repositório:** ${{ github.repository }}
             👤 **Usuário:** ${{ github.actor }}
             🔗 [Ver repositório no GitHub](https://github.com/${{ github.repository }})
             📝 **Último commit:** ${{ github.event.head_commit.message }}
+=======
+          args: '🚀 Novo push feito na branch main do repositório Formativa2!'
+>>>>>>> 2bab61ed16435ca2c10edf9e8d9f396f5a53800a
