@@ -6,7 +6,7 @@ from tkinter import messagebox, PhotoImage
 
 # Configurar banco de dados
 def conectar_bd():
-    conn = sqlite3.connect("clientes.db")
+    conn = sqlite3.connect("../clientes.db")
     cursor = conn.cursor()
     cursor.execute('''CREATE TABLE IF NOT EXISTS clientes (
                       telefone INTEGER PRIMARY KEY NOT NULL,
@@ -40,7 +40,7 @@ def adicionar_cliente():
         return
 
     try:
-        conn = sqlite3.connect("clientes.db")
+        conn = sqlite3.connect("../clientes.db")
         cursor = conn.cursor()
         cursor.execute(
             "INSERT INTO clientes (telefone, nome, endereco, bairro, numeroresidencial, complemento) VALUES (?, ?, ?, ?, ?, ?)",
@@ -56,7 +56,7 @@ def listar_clientes():
     for row in tree.get_children():
         tree.delete(row)
 
-    conn = sqlite3.connect("clientes.db")
+    conn = sqlite3.connect("../clientes.db")
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM clientes")
     for row in cursor.fetchall():
@@ -70,7 +70,7 @@ def buscar_cliente():
         messagebox.showerror("Erro", "Digite um telefone válido com 11 dígitos!")
         return
 
-    conn = sqlite3.connect("clientes.db")
+    conn = sqlite3.connect("../clientes.db")
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM clientes WHERE telefone = ?", (telefone,))
     row = cursor.fetchone()
@@ -92,7 +92,7 @@ def excluir_cliente():
         return
 
     # Conectar ao banco de dados para buscar o cliente
-    conn = sqlite3.connect("clientes.db")
+    conn = sqlite3.connect("../clientes.db")
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM clientes WHERE telefone = ?", (telefone,))
     row = cursor.fetchone()
@@ -105,7 +105,7 @@ def excluir_cliente():
 
         if confirmar:
             # Excluir cliente
-            conn = sqlite3.connect("clientes.db")
+            conn = sqlite3.connect("../clientes.db")
             cursor = conn.cursor()
             cursor.execute("DELETE FROM clientes WHERE telefone = ?", (telefone,))
             conn.commit()
@@ -117,13 +117,14 @@ def excluir_cliente():
 
 # Função para carregar dados para edição
 def carregar_cliente_para_editar():
-    telefone = entry_telefone_edit_buscar.get().strip()
+    telefone = entry_telefone_busca.get().strip()
+
 
     if not telefone.isdigit():
         messagebox.showerror("Erro", "Digite um telefone válido!")
         return
 
-    conn = sqlite3.connect("clientes.db")
+    conn = sqlite3.connect("../clientes.db")
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM clientes WHERE telefone = ?", (telefone,))
     row = cursor.fetchone()
@@ -174,7 +175,7 @@ def salvar_edicao():
         return
 
     try:
-        conn = sqlite3.connect("clientes.db")
+        conn = sqlite3.connect("../clientes.db")
         cursor = conn.cursor()
         cursor.execute(
             "UPDATE clientes SET telefone = ?, nome = ?, endereco = ?, bairro = ?, numeroresidencial = ?, complemento = ? WHERE telefone = ?",
@@ -197,7 +198,7 @@ def pesquisar_cliente_por_telefone():
         messagebox.showerror("Erro", "Digite um telefone válido!")
         return
 
-    conn = sqlite3.connect("clientes.db")
+    conn = sqlite3.connect("../clientes.db")
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM clientes WHERE telefone = ?", (telefone,))
     row = cursor.fetchone()
@@ -348,9 +349,14 @@ btn_salvar_edicao.pack(pady=10)
 frame_excluir = ttk.Frame(notebook)
 notebook.add(frame_excluir, text="Excluir Cliente")
 
-ttk.Label(frame_excluir, text="Selecione um cliente na aba 'Visualizar Clientes' e clique no botão abaixo:").pack()
+ttk.Label(frame_excluir, text="Digite o telefone do cliente a ser excluído:").pack()
+
+entry_telefone_excluir = ttk.Entry(frame_excluir, width=40)
+entry_telefone_excluir.pack()
+
 btn_excluir = ttk.Button(frame_excluir, text="Excluir Cliente", command=excluir_cliente, bootstyle=DANGER)
 btn_excluir.pack(pady=10)
+
 
 print("Teste GitHub com Discord")
 
