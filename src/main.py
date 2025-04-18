@@ -228,130 +228,135 @@ def pesquisar_cliente_por_telefone():
         messagebox.showerror("Erro", "Cliente não encontrado!")
 
 # Criar interface gráfica
-conectar_bd()
-root = ttk.Window(themename="superhero")
-root.title("Clientes - Café com Bolos")
+global root
 
-# Obter a resolução da tela
-screen_width = root.winfo_screenwidth()  # Largura da tela
-screen_height = root.winfo_screenheight()  # Altura da tela
 
-# Definir a geometria da janela para ocupar 80% da tela
-largura = int(screen_width * 0.8)
-altura = int(screen_height * 0.8)
+if __name__ == "__main__":
+    conectar_bd()
+    app = ttk.Window(title="Cadastro de Clientes-Café com Bolo", themename="flatly", size=(900, 700))
 
-# Definir a geometria da janela com a largura e altura ajustadas
-root.geometry(f"{largura}x{altura}")
 
-notebook = ttk.Notebook(root)
-notebook.pack(pady=10, expand=True, fill=BOTH)
 
-# Aba Adicionar Cliente
-frame_adicionar = ttk.Frame(notebook)
-notebook.add(frame_adicionar, text="Adicionar Cliente")
+    # Obter a resolução da tela
+    screen_width = root.winfo_screenwidth()  # Largura da tela
+    screen_height = root.winfo_screenheight()  # Altura da tela
 
-ttk.Label(frame_adicionar, text="Nome:").pack()
-entry_nome = ttk.Entry(frame_adicionar, width=40)
-entry_nome.pack()
+    # Definir a geometria da janela para ocupar 80% da tela
+    largura = int(screen_width * 0.8)
+    altura = int(screen_height * 0.8)
 
-ttk.Label(frame_adicionar, text="Telefone (somente números):").pack()
-entry_telefone = ttk.Entry(frame_adicionar, width=40)
-entry_telefone.pack()
+    # Definir a geometria da janela com a largura e altura ajustadas
+    root.geometry(f"{largura}x{altura}")
 
-ttk.Label(frame_adicionar, text="Endereço:").pack()
-entry_endereco = ttk.Entry(frame_adicionar, width=40)
-entry_endereco.pack()
+    notebook = ttk.Notebook(root)
+    notebook.pack(pady=10, expand=True, fill=BOTH)
 
-ttk.Label(frame_adicionar, text="Bairro:").pack()
-entry_bairro = ttk.Entry(frame_adicionar, width=40)
-entry_bairro.pack()
+    # Aba Adicionar Cliente
+    frame_adicionar = ttk.Frame(notebook)
+    notebook.add(frame_adicionar, text="Adicionar Cliente")
 
-ttk.Label(frame_adicionar, text="Número Residencial:").pack()
-entry_numeroresidencial = ttk.Entry(frame_adicionar, width=40)
-entry_numeroresidencial.pack()
+    ttk.Label(frame_adicionar, text="Nome:").pack()
+    entry_nome = ttk.Entry(frame_adicionar, width=40)
+    entry_nome.pack()
 
-ttk.Label(frame_adicionar, text="Complemento (opcional):").pack()
-entry_complemento = ttk.Entry(frame_adicionar, width=40)
-entry_complemento.pack()
+    ttk.Label(frame_adicionar, text="Telefone (somente números):").pack()
+    entry_telefone = ttk.Entry(frame_adicionar, width=40)
+    entry_telefone.pack()
 
-btn_adicionar = ttk.Button(frame_adicionar, text="Adicionar Cliente", command=adicionar_cliente, bootstyle=SUCCESS)
-btn_adicionar.pack(pady=10)
+    ttk.Label(frame_adicionar, text="Endereço:").pack()
+    entry_endereco = ttk.Entry(frame_adicionar, width=40)
+    entry_endereco.pack()
 
-# Aba Visualizar Clientes
-frame_visualizar = ttk.Frame(notebook)
-notebook.add(frame_visualizar, text="Visualizar Clientes")
+    ttk.Label(frame_adicionar, text="Bairro:").pack()
+    entry_bairro = ttk.Entry(frame_adicionar, width=40)
+    entry_bairro.pack()
 
-tree = ttk.Treeview(frame_visualizar, columns=("Telefone", "Nome", "Endereço", "Bairro", "Número", "Complemento"),
-                    show="headings")
-tree.heading("Telefone", text="Telefone")
-tree.heading("Nome", text="Nome")
-tree.heading("Endereço", text="Endereço")
-tree.heading("Bairro", text="Bairro")
-tree.heading("Número", text="Número")
-tree.heading("Complemento", text="Complemento")
-tree.pack(expand=True, fill=BOTH)
-listar_clientes()
+    ttk.Label(frame_adicionar, text="Número Residencial:").pack()
+    entry_numeroresidencial = ttk.Entry(frame_adicionar, width=40)
+    entry_numeroresidencial.pack()
 
-# Aba Pesquisar Cliente
-frame_busca = ttk.Frame(notebook)
-notebook.add(frame_busca, text="Buscar Cliente")
+    ttk.Label(frame_adicionar, text="Complemento (opcional):").pack()
+    entry_complemento = ttk.Entry(frame_adicionar, width=40)
+    entry_complemento.pack()
 
-ttk.Label(frame_busca, text="Digite o telefone do cliente:").pack()
-entry_busca = ttk.Entry(frame_busca, width=30)
-entry_busca.pack()
-btn_buscar = ttk.Button(frame_busca, text="Buscar", command=buscar_cliente, bootstyle=PRIMARY)
-btn_buscar.pack(pady=5)
+    btn_adicionar = ttk.Button(frame_adicionar, text="Adicionar Cliente", command=adicionar_cliente, bootstyle=SUCCESS)
+    btn_adicionar.pack(pady=10)
 
-# Aba Editar Cliente
-frame_editar = ttk.Frame(notebook)
-notebook.add(frame_editar, text="Editar Cliente")
+    # Aba Visualizar Clientes
+    frame_visualizar = ttk.Frame(notebook)
+    notebook.add(frame_visualizar, text="Visualizar Clientes")
 
-# Campo para digitar o telefone a ser buscado
-ttk.Label(frame_editar, text="Digite o telefone para buscar:").pack(pady=10)
-entry_telefone_busca = ttk.Entry(frame_editar, width=40)
-entry_telefone_busca.pack()
+    tree = ttk.Treeview(frame_visualizar, columns=("Telefone", "Nome", "Endereço", "Bairro", "Número", "Complemento"),
+                        show="headings")
+    tree.heading("Telefone", text="Telefone")
+    tree.heading("Nome", text="Nome")
+    tree.heading("Endereço", text="Endereço")
+    tree.heading("Bairro", text="Bairro")
+    tree.heading("Número", text="Número")
+    tree.heading("Complemento", text="Complemento")
+    tree.pack(expand=True, fill=BOTH)
+    listar_clientes()
 
-# Botão de pesquisa
-btn_buscar_cliente = ttk.Button(frame_editar, text="Buscar Cliente", command=pesquisar_cliente_por_telefone, bootstyle=PRIMARY)
-btn_buscar_cliente.pack(pady=10)
+    # Aba Pesquisar Cliente
+    frame_busca = ttk.Frame(notebook)
+    notebook.add(frame_busca, text="Buscar Cliente")
 
-# Campos de edição do cliente
-ttk.Label(frame_editar, text="Telefone:").pack()
-entry_telefone_edit = ttk.Entry(frame_editar, width=40)
-entry_telefone_edit.pack()
+    ttk.Label(frame_busca, text="Digite o telefone do cliente:").pack()
+    entry_busca = ttk.Entry(frame_busca, width=30)
+    entry_busca.pack()
+    btn_buscar = ttk.Button(frame_busca, text="Buscar", command=buscar_cliente, bootstyle=PRIMARY)
+    btn_buscar.pack(pady=5)
 
-ttk.Label(frame_editar, text="Nome:").pack()
-entry_nome_edit = ttk.Entry(frame_editar, width=40)
-entry_nome_edit.pack()
+    # Aba Editar Cliente
+    frame_editar = ttk.Frame(notebook)
+    notebook.add(frame_editar, text="Editar Cliente")
 
-ttk.Label(frame_editar, text="Endereço:").pack()
-entry_endereco_edit = ttk.Entry(frame_editar, width=40)
-entry_endereco_edit.pack()
+    # Campo para digitar o telefone a ser buscado
+    ttk.Label(frame_editar, text="Digite o telefone para buscar:").pack(pady=10)
+    entry_telefone_busca = ttk.Entry(frame_editar, width=40)
+    entry_telefone_busca.pack()
 
-ttk.Label(frame_editar, text="Bairro:").pack()
-entry_bairro_edit = ttk.Entry(frame_editar, width=40)
-entry_bairro_edit.pack()
+    # Botão de pesquisa
+    btn_buscar_cliente = ttk.Button(frame_editar, text="Buscar Cliente", command=pesquisar_cliente_por_telefone, bootstyle=PRIMARY)
+    btn_buscar_cliente.pack(pady=10)
 
-ttk.Label(frame_editar, text="Número Residencial:").pack()
-entry_numeroresidencial_edit = ttk.Entry(frame_editar, width=40)
-entry_numeroresidencial_edit.pack()
+    # Campos de edição do cliente
+    ttk.Label(frame_editar, text="Telefone:").pack()
+    entry_telefone_edit = ttk.Entry(frame_editar, width=40)
+    entry_telefone_edit.pack()
 
-ttk.Label(frame_editar, text="Complemento (opcional):").pack()
-entry_complemento_edit = ttk.Entry(frame_editar, width=40)
-entry_complemento_edit.pack()
+    ttk.Label(frame_editar, text="Nome:").pack()
+    entry_nome_edit = ttk.Entry(frame_editar, width=40)
+    entry_nome_edit.pack()
 
-# Botão de salvar as edições
-btn_salvar_edicao = ttk.Button(frame_editar, text="Salvar Alterações", command=salvar_edicao, bootstyle=SUCCESS)
-btn_salvar_edicao.pack(pady=10)
+    ttk.Label(frame_editar, text="Endereço:").pack()
+    entry_endereco_edit = ttk.Entry(frame_editar, width=40)
+    entry_endereco_edit.pack()
 
-# Aba Excluir Cliente
-frame_excluir = ttk.Frame(notebook)
-notebook.add(frame_excluir, text="Excluir Cliente")
+    ttk.Label(frame_editar, text="Bairro:").pack()
+    entry_bairro_edit = ttk.Entry(frame_editar, width=40)
+    entry_bairro_edit.pack()
 
-ttk.Label(frame_excluir, text="Selecione um cliente na aba 'Visualizar Clientes' e clique no botão abaixo:").pack()
-btn_excluir = ttk.Button(frame_excluir, text="Excluir Cliente", command=excluir_cliente, bootstyle=DANGER)
-btn_excluir.pack(pady=10)
+    ttk.Label(frame_editar, text="Número Residencial:").pack()
+    entry_numeroresidencial_edit = ttk.Entry(frame_editar, width=40)
+    entry_numeroresidencial_edit.pack()
 
-print("Teste GitHub com Discord")
+    ttk.Label(frame_editar, text="Complemento (opcional):").pack()
+    entry_complemento_edit = ttk.Entry(frame_editar, width=40)
+    entry_complemento_edit.pack()
 
-root.mainloop()
+    # Botão de salvar as edições
+    btn_salvar_edicao = ttk.Button(frame_editar, text="Salvar Alterações", command=salvar_edicao, bootstyle=SUCCESS)
+    btn_salvar_edicao.pack(pady=10)
+
+    # Aba Excluir Cliente
+    frame_excluir = ttk.Frame(notebook)
+    notebook.add(frame_excluir, text="Excluir Cliente")
+
+    ttk.Label(frame_excluir, text="Selecione um cliente na aba 'Visualizar Clientes' e clique no botão abaixo:").pack()
+    btn_excluir = ttk.Button(frame_excluir, text="Excluir Cliente", command=excluir_cliente, bootstyle=DANGER)
+    btn_excluir.pack(pady=10)
+
+    print("Teste GitHub com Discord")
+
+    root.mainloop()
