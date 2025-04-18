@@ -359,4 +359,4 @@ if __name__ == "__main__":
 
     print("Teste GitHub com Discord")
 
-    root.mainloop()
+    app.mainloop()
