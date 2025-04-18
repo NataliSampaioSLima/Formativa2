@@ -117,7 +117,7 @@ def excluir_cliente():
 
 # Função para carregar dados para edição
 def carregar_cliente_para_editar():
-    telefone = entry_telefone_edit_buscar.get().strip()
+    telefone = entry_telefone_busca.get().strip()
 
     if not telefone.isdigit():
         messagebox.showerror("Erro", "Digite um telefone válido!")
@@ -353,7 +353,11 @@ if __name__ == "__main__":
     frame_excluir = ttk.Frame(notebook)
     notebook.add(frame_excluir, text="Excluir Cliente")
 
-    ttk.Label(frame_excluir, text="Selecione um cliente na aba 'Visualizar Clientes' e clique no botão abaixo:").pack()
+    ttk.Label(frame_excluir, text="Digite o telefone do cliente a ser excluído:").pack()
+
+    entry_telefone_excluir = ttk.Entry(frame_excluir, width=40)
+    entry_telefone_excluir.pack()
+
     btn_excluir = ttk.Button(frame_excluir, text="Excluir Cliente", command=excluir_cliente, bootstyle=DANGER)
     btn_excluir.pack(pady=10)
 
