@@ -117,6 +117,7 @@ def excluir_cliente():
 
 # Função para carregar dados para edição
 def carregar_cliente_para_editar():
+
     telefone = entry_telefone_busca.get().strip()
 
 
@@ -356,6 +357,7 @@ entry_telefone_excluir.pack()
 
 btn_excluir = ttk.Button(frame_excluir, text="Excluir Cliente", command=excluir_cliente, bootstyle=DANGER)
 btn_excluir.pack(pady=10)
+
 
 
 print("Teste GitHub com Discord")
