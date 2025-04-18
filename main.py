@@ -352,4 +352,6 @@ ttk.Label(frame_excluir, text="Selecione um cliente na aba 'Visualizar Clientes'
 btn_excluir = ttk.Button(frame_excluir, text="Excluir Cliente", command=excluir_cliente, bootstyle=DANGER)
 btn_excluir.pack(pady=10)
 
+print("Teste GitHub com Discord")
+
 root.mainloop()
