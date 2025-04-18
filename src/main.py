@@ -6,7 +6,7 @@ from tkinter import messagebox, PhotoImage
 
 # Configurar banco de dados
 def conectar_bd():
-    conn = sqlite3.connect("clientes.db")
+    conn = sqlite3.connect("../clientes.db")
     cursor = conn.cursor()
     cursor.execute('''CREATE TABLE IF NOT EXISTS clientes (
                       telefone INTEGER PRIMARY KEY NOT NULL,
@@ -40,7 +40,7 @@ def adicionar_cliente():
         return
 
     try:
-        conn = sqlite3.connect("clientes.db")
+        conn = sqlite3.connect("../clientes.db")
         cursor = conn.cursor()
         cursor.execute(
             "INSERT INTO clientes (telefone, nome, endereco, bairro, numeroresidencial, complemento) VALUES (?, ?, ?, ?, ?, ?)",
@@ -56,7 +56,7 @@ def listar_clientes():
     for row in tree.get_children():
         tree.delete(row)
 
-    conn = sqlite3.connect("clientes.db")
+    conn = sqlite3.connect("../clientes.db")
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM clientes")
     for row in cursor.fetchall():
@@ -70,7 +70,7 @@ def buscar_cliente():
         messagebox.showerror("Erro", "Digite um telefone válido com 11 dígitos!")
         return
 
-    conn = sqlite3.connect("clientes.db")
+    conn = sqlite3.connect("../clientes.db")
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM clientes WHERE telefone = ?", (telefone,))
     row = cursor.fetchone()
@@ -92,7 +92,7 @@ def excluir_cliente():
         return
 
     # Conectar ao banco de dados para buscar o cliente
-    conn = sqlite3.connect("clientes.db")
+    conn = sqlite3.connect("../clientes.db")
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM clientes WHERE telefone = ?", (telefone,))
     row = cursor.fetchone()
@@ -105,7 +105,7 @@ def excluir_cliente():
 
         if confirmar:
             # Excluir cliente
-            conn = sqlite3.connect("clientes.db")
+            conn = sqlite3.connect("../clientes.db")
             cursor = conn.cursor()
             cursor.execute("DELETE FROM clientes WHERE telefone = ?", (telefone,))
             conn.commit()
@@ -123,7 +123,7 @@ def carregar_cliente_para_editar():
         messagebox.showerror("Erro", "Digite um telefone válido!")
         return
 
-    conn = sqlite3.connect("clientes.db")
+    conn = sqlite3.connect("../clientes.db")
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM clientes WHERE telefone = ?", (telefone,))
     row = cursor.fetchone()
@@ -174,7 +174,7 @@ def salvar_edicao():
         return
 
     try:
-        conn = sqlite3.connect("clientes.db")
+        conn = sqlite3.connect("../clientes.db")
         cursor = conn.cursor()
         cursor.execute(
             "UPDATE clientes SET telefone = ?, nome = ?, endereco = ?, bairro = ?, numeroresidencial = ?, complemento = ? WHERE telefone = ?",
@@ -197,7 +197,7 @@ def pesquisar_cliente_por_telefone():
         messagebox.showerror("Erro", "Digite um telefone válido!")
         return
 
-    conn = sqlite3.connect("clientes.db")
+    conn = sqlite3.connect("../clientes.db")
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM clientes WHERE telefone = ?", (telefone,))
     row = cursor.fetchone()
