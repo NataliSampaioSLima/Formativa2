@@ -1,22 +1,21 @@
+name: Enviar alerta para Discord
 
-          name: Alerta no Discord
+on:
+  push:
+    branches:
+      - main
 
-          on:
-            push:
-              branches:
-                - '**'
-          
+jobs:
+  notify:
+    runs-on: ubuntu-latest
 
-          jobs:
-            discord-alert:
-              runs-on: ubuntu-latest
-              steps:
-                - name: Enviar mensagem para o Discord
-                  uses: Ilshidur/action-discord@master
-                  with:
-                    webhook: ${{ secrets.DISCORD_WEBHOOK }}
-                    message: |
-                      🚨 Novo push no branch **main**!
-                      🔹 Autor: ${{ github.actor }}
-                      🔹 Repositório: ${{ github.repository }}
-                      🔹 Mensagem do commit: ${{ github.event.head_commit.message }}
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Enviar mensagem para o Discord
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          args: '🚀 Novo push feito na branch main do repositório Formativa2!'
